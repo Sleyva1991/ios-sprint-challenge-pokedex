@@ -13,7 +13,7 @@
         <!--Pokedex-->
         <scene sceneID="r3k-9m-sPN">
             <objects>
-                <tableViewController id="NzA-dA-icb" sceneMemberID="viewController">
+                <tableViewController id="NzA-dA-icb" customClass="PokemonTableViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tKY-yc-SDH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -126,6 +126,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Save Pokemon"/>
                                 <connections>
+                                    <action selector="savePokemonButton:" destination="PKl-xs-HOt" eventType="touchUpInside" id="Ehf-ky-nxe"/>
                                     <action selector="savePokemonTapped:" destination="PKl-xs-HOt" eventType="touchUpInside" id="NsY-90-eGa"/>
                                 </connections>
                             </button>
@@ -199,12 +200,12 @@
                         <viewLayoutGuide key="safeArea" id="equ-Pf-nhU"/>
                     </view>
                     <connections>
-                        <outlet property="abilitiesLabel" destination="BOU-aO-Edl" id="rT7-mE-J8J"/>
-                        <outlet property="idLabel" destination="cQU-g1-hdf" id="0SZ-GK-YOY"/>
-                        <outlet property="nameLabel" destination="EuI-Kd-jgX" id="Mbe-Sj-Osa"/>
-                        <outlet property="pokemonImageView" destination="oJy-Cr-jMY" id="bfu-Co-X5k"/>
-                        <outlet property="pokemonSearchBar" destination="Myn-fR-5Uq" id="cTL-JH-KAq"/>
-                        <outlet property="typeLabel" destination="R6A-dY-DLZ" id="Fut-33-cjN"/>
+                        <outlet property="abilitiesLabel" destination="wBT-Kg-STe" id="BrL-Jm-683"/>
+                        <outlet property="idLabel" destination="cQU-g1-hdf" id="LAJ-Nc-xTK"/>
+                        <outlet property="nameLabel" destination="EuI-Kd-jgX" id="fEw-xR-QPI"/>
+                        <outlet property="pokemonImageView" destination="oJy-Cr-jMY" id="NDb-xV-6g5"/>
+                        <outlet property="pokemonSearchBar" destination="Myn-fR-5Uq" id="cwp-eP-GIT"/>
+                        <outlet property="typeLabel" destination="R6A-dY-DLZ" id="JCg-fN-fa6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oN-oS-geX" userLabel="First Responder" sceneMemberID="firstResponder"/>
