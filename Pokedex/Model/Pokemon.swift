@@ -28,7 +28,7 @@ struct AbilityInfo: Codable {
 }
 
 struct Sprites: Codable {
-    let frontDefult: String
+    let frontDefault: String
     
     enum CodingKeys: String, CodingKey {
         case frontDefault = "front_default"
