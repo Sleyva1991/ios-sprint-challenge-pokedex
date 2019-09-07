@@ -17,44 +17,67 @@ class PokemonDetailViewController: UIViewController {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var abilitiesLabel: UILabel!
     
-    
     var pokedexController: PokedexController?
     
     var pokemon: Pokemon? {
-        didSet {
+        didSet{
             updateViews()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        updateViews()
+        pokemonSearchBar.delegate = self
+        guard let pokemon = pokemon else { return }
+        print("fetch \(pokemon)")
     }
+    
+ 
     
     func updateViews() {
-        guard let pokemon = pokemon else { return }
+        guard isViewLoaded else { return }
+        guard let pokemon = pokemon else { self.nameLabel.text = ""
+            return
+        }
         
         nameLabel.text = pokemon.name
-        idLabel.text = "ID: \(pokemon.id)"
-        typeLabel.text = "Type: \(pokemon.type)"
-        abilitiesLabel.text = "Abilities: \(pokemon.abilities)"
+        idLabel.text = String(pokemon.id)
+        let typeString = pokemon.types.map({$0.type.name.capitalized}).joined(separator: ",")
+        typeLabel.text = "Type: \(typeString)"
+        let abilityString = pokemon.abilities.map({$0.ability.name.capitalized}).joined(separator: ",")
+        abilitiesLabel.text = "Abilities: \(abilityString)"
+        
+        self.pokedexController?.getImage(at: pokemon.sprites.frontDefault, completion: { (image) in
+            DispatchQueue.main.async {
+                self.pokemonImageView.image = image
+            }
+        })
+        
+        
     }
     
-    @IBAction func savePokemonButton(_ sender: Any) {
-        guard let title = nameLabel.text, !title.isEmpty else { return }
-        navigationController?.popViewController(animated: true)
+    @IBAction func savePokemonTapped(_ sender: Any) {
+        guard let pokemon = pokemon else { return }
+        pokedexController?.pokedex.append(pokemon)
+       self.navigationController?.popViewController(animated: true)
+        
     }
 }
 
 extension PokemonDetailViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchterm = pokemonSearchBar.text else { return }
         
-        pokedexController?.searchForPokemon(searchterm: searchterm, completion: { (error) in
-            if let error = error {
-                print("Search term not found: \(error)")
+        pokedexController?.searchForPokemon(searchterm: searchterm, completion: { (result) in
+            guard let pokemon = try? result?.get() else { return }
+            
+            DispatchQueue.main.async {
+                self.pokemon = pokemon
             }
         })
     }
 }
+
+
